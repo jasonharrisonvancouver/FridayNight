@@ -42,9 +42,27 @@ class ViewController: UIViewController, LoginButtonDelegate {
                                         // 4
                                         groceryItemRef.setValue(groceryItem.toAnyObject())
         }*/
+        
+        
+        
+        let activityUsersRef = self.ref//.child('activityusers');
+        // imagesRef now points to 'images'
+        
+        // Child references can also take paths delimited by '/'
+        let activityUserFirstName = usernameText!.text!
+        let activityUserRef = activityUsersRef!.child("activityusers/\(String(describing: activityUserFirstName))")
+        let activityUser = ActivityUser(firstName: usernameText.text!)
+
+        activityUserRef.setValue(activityUser.toAnyObject())
+        /*
         let activityUser = ActivityUser(firstName: usernameText.text!)
         let userDbRef = self.ref.child(usernameText.text!)
         userDbRef.setValue(activityUser.toAnyObject())
+        */
+        
+        
+        
+        
         
         Database.database().reference().child("cassandra").observe(.childChanged) { (snapshot, key) in
             self.firebaseUsernameText.text = key
