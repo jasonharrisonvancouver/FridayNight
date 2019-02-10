@@ -14,9 +14,9 @@ import FBSDKCoreKit
 
 
 class ViewController: UIViewController, LoginButtonDelegate {
-
+    
     var ref: DatabaseReference!
-
+    
     
     @IBOutlet weak var usernameText: UITextField!
     @IBOutlet weak var firebaseUsernameText: UITextField!
@@ -26,22 +26,22 @@ class ViewController: UIViewController, LoginButtonDelegate {
     
     
     @IBAction func updateUsernameButtonPressed(_ sender: UIButton) {
-       /* let saveAction = UIAlertAction(title: "Save",
-                                       style: .default) { _ in
-                                        // 1
-                                        guard let textField = alert.textFields?.first,
-                                            let text = textField.text else { return }
-                                        
-                                        // 2
-                                        let groceryItem = GroceryItem(name: text,
-                                                                      addedByUser: self.user.email,
-                                                                      completed: false)
-                                        // 3
-                                        let groceryItemRef = self.ref.child(text.lowercased())
-                                        
-                                        // 4
-                                        groceryItemRef.setValue(groceryItem.toAnyObject())
-        }*/
+        /* let saveAction = UIAlertAction(title: "Save",
+         style: .default) { _ in
+         // 1
+         guard let textField = alert.textFields?.first,
+         let text = textField.text else { return }
+         
+         // 2
+         let groceryItem = GroceryItem(name: text,
+         addedByUser: self.user.email,
+         completed: false)
+         // 3
+         let groceryItemRef = self.ref.child(text.lowercased())
+         
+         // 4
+         groceryItemRef.setValue(groceryItem.toAnyObject())
+         }*/
         
         
         
@@ -52,13 +52,13 @@ class ViewController: UIViewController, LoginButtonDelegate {
         let activityUserFirstName = usernameText!.text!
         let activityUserRef = activityUsersRef!.child("activityusers/\(String(describing: activityUserFirstName))")
         let activityUser = ActivityUser(firstName: usernameText.text!)
-
+        
         activityUserRef.setValue(activityUser.toAnyObject())
         /*
-        let activityUser = ActivityUser(firstName: usernameText.text!)
-        let userDbRef = self.ref.child(usernameText.text!)
-        userDbRef.setValue(activityUser.toAnyObject())
-        */
+         let activityUser = ActivityUser(firstName: usernameText.text!)
+         let userDbRef = self.ref.child(usernameText.text!)
+         userDbRef.setValue(activityUser.toAnyObject())
+         */
         
         
         
@@ -67,7 +67,7 @@ class ViewController: UIViewController, LoginButtonDelegate {
         
         Database.database().reference().child("activityUser").observe(.childChanged) { (snapshot, key) in
             self.firebaseUsernameText.text = key
-           // print(key)
+            // print(key)
             //"-L7EFPICxdWQcrLOEUkM"
         }
     }
@@ -81,12 +81,13 @@ class ViewController: UIViewController, LoginButtonDelegate {
         lb.delegate = self
         view.addSubview(lb)
         
+        // https://firebase.google.com/docs/database/security/quickstart?authuser=0
         
         ref = Database.database().reference()
         //let ref = Database.database().reference(withPath: "grocery-items")
-
+        
     }
-
+    
     
     
     /**
@@ -97,6 +98,23 @@ class ViewController: UIViewController, LoginButtonDelegate {
     public func loginButtonDidLogOut(_ loginButton: LoginButton) {
         print("user wants to log out from ")
         print(Auth.auth().currentUser?.email as Any)
+        
+        
+        guard Auth.auth().currentUser != nil else {
+            return
+        }
+        
+        do {
+            try Auth.auth().signOut()
+            FBSDKAccessToken.setCurrent(nil)
+//            loggedIn = false
+//            storedValuesData.setValue(nil, forKey: "savedLoginEmail")
+//            storedValuesData.setValue(nil, forKey: "savedLoginPassword")
+//            jumpToVC1()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
     }
     
     /**
@@ -124,17 +142,17 @@ class ViewController: UIViewController, LoginButtonDelegate {
      */
     func loginFireBase() {
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-      //  Auth.auth().signIn(with: credential) { (user, error) in
-            // ...
-            Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+        //  Auth.auth().signIn(with: credential) { (user, error) in
+        // ...
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if let error = error {
                 print(error)
                 return
             }
-                
-                print("logged in via facebook as: ");
+            
+            print("logged in via facebook as: ");
             print(authResult?.user.displayName! as Any)
-                // https://firebase.google.com/docs/auth/ios/manage-users#get_the_currently_signed-in_user
+            // https://firebase.google.com/docs/auth/ios/manage-users#get_the_currently_signed-in_user
         }
     }
 }
