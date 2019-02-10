@@ -1,0 +1,6 @@
+framework module Pods_FridayNightUITests {
+  umbrella header "Pods-FridayNightUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
