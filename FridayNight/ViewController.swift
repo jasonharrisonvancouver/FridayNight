@@ -11,8 +11,49 @@ import FacebookLogin
 import Firebase
 import FBSDKCoreKit
 
+
+
 class ViewController: UIViewController, LoginButtonDelegate {
 
+    var ref: DatabaseReference!
+
+    
+    @IBOutlet weak var usernameText: UITextField!
+    @IBOutlet weak var firebaseUsernameText: UITextField!
+    @IBOutlet weak var usernameButton: UIButton!
+    
+    
+    
+    
+    @IBAction func updateUsernameButtonPressed(_ sender: UIButton) {
+       /* let saveAction = UIAlertAction(title: "Save",
+                                       style: .default) { _ in
+                                        // 1
+                                        guard let textField = alert.textFields?.first,
+                                            let text = textField.text else { return }
+                                        
+                                        // 2
+                                        let groceryItem = GroceryItem(name: text,
+                                                                      addedByUser: self.user.email,
+                                                                      completed: false)
+                                        // 3
+                                        let groceryItemRef = self.ref.child(text.lowercased())
+                                        
+                                        // 4
+                                        groceryItemRef.setValue(groceryItem.toAnyObject())
+        }*/
+        let activityUser = ActivityUser(firstName: usernameText.text!)
+        let userDbRef = self.ref.child(usernameText.text!)
+        userDbRef.setValue(activityUser.toAnyObject())
+        
+        Database.database().reference().child("cassandra").observe(.childChanged) { (snapshot, key) in
+            self.firebaseUsernameText.text = key
+           // print(key)
+            //"-L7EFPICxdWQcrLOEUkM"
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +61,11 @@ class ViewController: UIViewController, LoginButtonDelegate {
         lb.center = view.center
         lb.delegate = self
         view.addSubview(lb)
+        
+        
+        ref = Database.database().reference()
+        //let ref = Database.database().reference(withPath: "grocery-items")
+
     }
 
     
@@ -66,7 +112,9 @@ class ViewController: UIViewController, LoginButtonDelegate {
                 return
             }
                 
+                print("logged in via facebook as: ");
             print(authResult?.user.displayName! as Any)
+                // https://firebase.google.com/docs/auth/ios/manage-users#get_the_currently_signed-in_user
         }
     }
 }
