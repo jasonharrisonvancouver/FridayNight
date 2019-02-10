@@ -62,9 +62,10 @@ class ViewController: UIViewController, LoginButtonDelegate {
         
         
         
+        print("uid is ");
+        print(Auth.auth().currentUser?.uid as Any)
         
-        
-        Database.database().reference().child("cassandra").observe(.childChanged) { (snapshot, key) in
+        Database.database().reference().child("activityUser").observe(.childChanged) { (snapshot, key) in
             self.firebaseUsernameText.text = key
            // print(key)
             //"-L7EFPICxdWQcrLOEUkM"
@@ -94,7 +95,8 @@ class ViewController: UIViewController, LoginButtonDelegate {
      - parameter loginButton: Button that was used to logout.
      */
     public func loginButtonDidLogOut(_ loginButton: LoginButton) {
-        
+        print("user wants to log out from ")
+        print(Auth.auth().currentUser?.email as Any)
     }
     
     /**
