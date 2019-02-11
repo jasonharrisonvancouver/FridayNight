@@ -93,7 +93,7 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
                 
                 
                 
-                
+                self.firebaseUsernameText.text = v["email"] as? String
                 
                 
                 
