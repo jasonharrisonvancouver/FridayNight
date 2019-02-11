@@ -54,7 +54,7 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
         let cleanEmail = (emailText.text)!.sha256()
         
         // Child references can also take paths delimited by '/'
-        let activityUserFirstName = usernameText!.text!
+       // let activityUserFirstName = usernameText!.text!
         let activityUserRef = activityUsersRef!.child("activityusers/\(String(describing: cleanEmail))")
         let activityUser = ActivityUser(firstName: usernameText.text!, email: emailText.text!)
         
@@ -82,6 +82,30 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
          userDbRef.setValue(activityUser.toAnyObject())
          */
         
+        self.ref.child("activityusers").observe(.childChanged, with: { (snapshot) in
+            //Determine if coordinate has changed
+            print("CHANGED")
+            print(snapshot.key)
+            print("clean email is \(cleanEmail)")
+            if(snapshot.key == cleanEmail){
+                let v = snapshot.value as! [String: String]
+                print(v["email"] as Any)
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                print("the new data changed")
+                print(snapshot.value as Any)
+                if let emailAddress = snapshot.value as? String {
+                    print(emailAddress)
+                }
+            }
+        })
         
         
         print("uid is ");
@@ -91,6 +115,10 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
             self.firebaseUsernameText.text = key
             // print(key)
             //"-L7EFPICxdWQcrLOEUkM"
+            
+            
+            
+            
         }
     }
     
