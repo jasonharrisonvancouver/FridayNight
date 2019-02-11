@@ -18,6 +18,16 @@ pod 'Firebase/Database'
 pod 'FacebookCore'
 pod 'FacebookLogin'
 
+pod 'FirebaseUI'
+
+pod 'FirebaseUI/Auth'
+
+pod 'FirebaseUI/Google'
+pod 'FirebaseUI/Facebook'
+pod 'FirebaseUI/Twitter'
+pod 'FirebaseUI/Phone'
+
+
 pod 'GoogleAnalytics'
 pod 'FirebaseAnalytics'
 pod 'GoogleTagManager'
