@@ -10,12 +10,14 @@ import UIKit
 import FacebookLogin
 import Firebase
 import FBSDKCoreKit
+import CoreLocation
 
 
 
-class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
+class FacebookLoginViewController: UIViewController, LoginButtonDelegate, CLLocationManagerDelegate{
     
     var ref: DatabaseReference!
+    var locationManager = CLLocationManager()
     
     
     @IBOutlet weak var usernameText: UITextField!
@@ -150,9 +152,39 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
             performSegue(withIdentifier: "loggedInSoBrowse", sender: self)
 
         }
+        
+        // get user's current location
+        if CLLocationManager.locationServicesEnabled() == true {
+            
+            if CLLocationManager.authorizationStatus() == .restricted || CLLocationManager.authorizationStatus() == .denied ||  CLLocationManager.authorizationStatus() == .notDetermined {
+                locationManager.requestWhenInUseAuthorization()
+            }
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
+        } else {
+            print("PLease turn on location services or GPS")
+        }
     }
     
     
+    
+    //MARK:- CLLocationManager Delegates
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.locationManager.stopUpdatingLocation()
+        
+        print("found you")
+        print("lat:")
+        print(locations[0].coordinate.latitude)
+        print("long:")
+        print(locations[0].coordinate.longitude)
+       // let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
+      //  self.mapView.setRegion(region, animated: true)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Unable to access your current location")
+    }
     
     /**
      Called when the button was used to logout.
