@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
+ 
     
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
@@ -72,7 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                          open: url,
                                                          sourceApplication: sourceApplication,
                                                          annotation: annotation)
-    }
+        
+         }
     
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {

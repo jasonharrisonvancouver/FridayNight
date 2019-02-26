@@ -24,7 +24,7 @@ pod 'FirebaseUI/Auth'
 
 pod 'FirebaseUI/Google'
 pod 'FirebaseUI/Facebook'
-pod 'FirebaseUI/Twitter'
+#pod 'FirebaseUI/Twitter'
 pod 'FirebaseUI/Phone'
 
 

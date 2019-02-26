@@ -89,11 +89,11 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
             print("clean email is \(cleanEmail)")
             if(snapshot.key == cleanEmail){
                 let v = snapshot.value as! [String: String]
-                print(v["email"] as Any)
+                print(v["firstname"] as Any)
                 
                 
                 
-                self.firebaseUsernameText.text = v["email"] as? String
+                self.firebaseUsernameText.text = v["firstname"] as? String
                 
                 
                 
@@ -138,7 +138,15 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
         
         ref = Database.database().reference()
         //let ref = Database.database().reference(withPath: "grocery-items")
+        print("son logged in as ")
+        print(Auth.auth().currentUser?.email!)
         
+        if(Auth.auth().currentUser == nil){
+            print("NIL nil nillll")
+        }else{
+            self.emailText.text = Auth.auth().currentUser?.email
+            self.usernameText.text = Auth.auth().currentUser?.displayName
+        }
     }
     
     
@@ -183,6 +191,7 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
             break
         case .success(let grantedPermissions, let declinedPermissions, let accessToken):
             loginFireBase()
+            print("time to browse dates....")
             break
         default: break
             
@@ -209,6 +218,7 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
             // https://firebase.google.com/docs/auth/ios/manage-users#get_the_currently_signed-in_user
             // login via twitter, email, phone, google etc:
             // https://firebase.google.com/docs/auth/ios/firebaseui
+            print("the time has come to browse dates")
         }
     }
 }
