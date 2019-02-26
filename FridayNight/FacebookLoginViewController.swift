@@ -146,6 +146,9 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate {
         }else{
             self.emailText.text = Auth.auth().currentUser?.email
             self.usernameText.text = Auth.auth().currentUser?.displayName
+            
+            performSegue(withIdentifier: "loggedInSoBrowse", sender: self)
+
         }
     }
     

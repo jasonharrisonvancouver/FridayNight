@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9F09DCDB2210941E00AECB82 /* ActivityUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F09DCDA2210941E00AECB82 /* ActivityUser.swift */; };
 		9F09DCE222110EFC00AECB82 /* String+sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F09DCE122110EFB00AECB82 /* String+sha256.swift */; };
+		9F1EA52E2225D74500FB218E /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1EA52D2225D74500FB218E /* EventTableViewCell.swift */; };
+		9F1EA5322225DA9500FB218E /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1EA5312225DA9500FB218E /* EventTableViewController.swift */; };
 		9F5102CC220FD3C900E914D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5102CB220FD3C900E914D1 /* AppDelegate.swift */; };
 		9F5102CE220FD3C900E914D1 /* FacebookLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5102CD220FD3C900E914D1 /* FacebookLoginViewController.swift */; };
 		9F5102D1220FD3C900E914D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F5102CF220FD3C900E914D1 /* Main.storyboard */; };
@@ -46,6 +48,8 @@
 		9F09DCDA2210941E00AECB82 /* ActivityUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityUser.swift; path = /Users/jasonharrison/Documents/FridayNight/FridayNight/ActivityUser.swift; sourceTree = "<absolute>"; };
 		9F09DCDE22110EB100AECB82 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		9F09DCE122110EFB00AECB82 /* String+sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+sha256.swift"; sourceTree = "<group>"; };
+		9F1EA52D2225D74500FB218E /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		9F1EA5312225DA9500FB218E /* EventTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		9F5102C8220FD3C900E914D1 /* FridayNight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FridayNight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F5102CB220FD3C900E914D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F5102CD220FD3C900E914D1 /* FacebookLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +143,8 @@
 				9F5102F9220FD7E400E914D1 /* GoogleService-Info.plist */,
 				9F5102CD220FD3C900E914D1 /* FacebookLoginViewController.swift */,
 				9F5102CF220FD3C900E914D1 /* Main.storyboard */,
+				9F1EA5312225DA9500FB218E /* EventTableViewController.swift */,
+				9F1EA52D2225D74500FB218E /* EventTableViewCell.swift */,
 				9F09DCE122110EFB00AECB82 /* String+sha256.swift */,
 				9F5102D2220FD3CB00E914D1 /* Assets.xcassets */,
 				9F09DCDE22110EB100AECB82 /* BridgingHeader.h */,
@@ -479,6 +485,8 @@
 				9F5102CE220FD3C900E914D1 /* FacebookLoginViewController.swift in Sources */,
 				9F09DCE222110EFC00AECB82 /* String+sha256.swift in Sources */,
 				9F5102CC220FD3C900E914D1 /* AppDelegate.swift in Sources */,
+				9F1EA52E2225D74500FB218E /* EventTableViewCell.swift in Sources */,
+				9F1EA5322225DA9500FB218E /* EventTableViewController.swift in Sources */,
 				9F09DCDB2210941E00AECB82 /* ActivityUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -57,11 +57,40 @@
                         <outlet property="firebaseUsernameText" destination="mhL-fj-Pnv" id="OFO-wM-KLD"/>
                         <outlet property="usernameButton" destination="WS9-He-Kmt" id="AvK-Ty-sys"/>
                         <outlet property="usernameText" destination="h25-7H-fdH" id="Qug-zk-1xU"/>
+                        <segue destination="yjH-ft-TYq" kind="show" identifier="loggedInSoBrowse" id="Acp-2D-fRU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1076" y="132.68365817091455"/>
+        </scene>
+        <!--Events-->
+        <scene sceneID="bLn-Mo-Hqj">
+            <objects>
+                <tableViewController title="Events" id="yjH-ft-TYq" customClass="EventTableViewController" customModule="FridayNight" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WBW-iy-ek7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" id="ImC-tj-9b9" customClass="EventTableViewCell" customModule="FridayNight" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ImC-tj-9b9" id="GD6-ck-vLA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yjH-ft-TYq" id="DY0-ld-5pB"/>
+                            <outlet property="delegate" destination="yjH-ft-TYq" id="o6X-Ou-h0b"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ly1-E5-87B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2084" y="67"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1Yu-UG-blR">
