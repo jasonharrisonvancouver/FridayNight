@@ -149,6 +149,9 @@ public enum SDKSettings {
 
       #if swift(>=4.1)
       let behaviors: [SDKLoggingBehavior] = FBSDKSettings.loggingBehavior().compactMap(createBehavior)
+        
+    
+        
       #else
       let behaviors: [SDKLoggingBehavior] = FBSDKSettings.loggingBehavior().flatMap(createBehavior)
       #endif

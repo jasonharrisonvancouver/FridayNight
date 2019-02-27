@@ -19,11 +19,14 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate, CLLoca
     var ref: DatabaseReference!
     var locationManager = CLLocationManager()
     
+    let geocoder = CLGeocoder()
+    var placemark: CLPlacemark?
     
     @IBOutlet weak var usernameText: UITextField!
     @IBOutlet weak var firebaseUsernameText: UITextField!
     @IBOutlet weak var usernameButton: UIButton!
     
+    @IBOutlet weak var cityTextView: UITextField!
     @IBOutlet weak var emailText: UITextField!
     
     
@@ -56,25 +59,25 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate, CLLoca
         let cleanEmail = (emailText.text)!.sha256()
         
         // Child references can also take paths delimited by '/'
-       // let activityUserFirstName = usernameText!.text!
+        // let activityUserFirstName = usernameText!.text!
         let activityUserRef = activityUsersRef!.child("activityusers/\(String(describing: cleanEmail))")
         let activityUser = ActivityUser(firstName: usernameText.text!, email: emailText.text!)
         
-       // let activityUser = ActivityUser(firstName: usernameText.text, email: Auth(), photoURL: <#T##String#>)
+        // let activityUser = ActivityUser(firstName: usernameText.text, email: Auth(), photoURL: <#T##String#>)
         
         /*
- Edit: a Firebase query for email in ObjC:
- 
- //references all of the users ordered by email
- FQuery *allUsers = [myUsersRef queryOrderedByChild:@"email"];
- 
- //ref the user with this email
- FQuery *thisSpecificUser = [allUsers queryEqualToValue:@“john@somecompany.com”];
- 
- //load the user with this email
- [thisSpecificUser observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
- //do something with this user
- }];*/
+         Edit: a Firebase query for email in ObjC:
+         
+         //references all of the users ordered by email
+         FQuery *allUsers = [myUsersRef queryOrderedByChild:@"email"];
+         
+         //ref the user with this email
+         FQuery *thisSpecificUser = [allUsers queryEqualToValue:@“john@somecompany.com”];
+         
+         //load the user with this email
+         [thisSpecificUser observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+         //do something with this user
+         }];*/
         
         
         activityUserRef.setValue(activityUser.toAnyObject())
@@ -125,7 +128,7 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate, CLLoca
     }
     
     
-
+    
     
     
     override func viewDidLoad() {
@@ -150,7 +153,7 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate, CLLoca
             self.usernameText.text = Auth.auth().currentUser?.displayName
             
             performSegue(withIdentifier: "loggedInSoBrowse", sender: self)
-
+            
         }
         
         // get user's current location
@@ -178,9 +181,35 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate, CLLoca
         print(locations[0].coordinate.latitude)
         print("long:")
         print(locations[0].coordinate.longitude)
-       // let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
-      //  self.mapView.setRegion(region, animated: true)
+        locationManager.delegate = nil
+        // let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
+        //  self.mapView.setRegion(region, animated: true)
+        
+        // Here is the place you want to start reverseGeocoding
+        geocoder.reverseGeocodeLocation(locations[0], completionHandler: { (placemarks, error) in
+            // always good to check if no error
+            // also we have to unwrap the placemark because it's optional
+            // I have done all in a single if but you check them separately
+            if error == nil, let placemark = placemarks, !placemark.isEmpty {
+                self.placemark = placemark.last
+            }
+            // a new function where you start to parse placemarks to get the information you need
+           
+            print(self.placemark ?? "no city info")
+            
+            let city = self.placemark?.locality
+            
+            print("your city is \(String(describing: city))")
+            self.cityTextView.text = city
+        })
+        
+        
+        
+        
     }
+    
+    
+    
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Unable to access your current location")
@@ -203,10 +232,10 @@ class FacebookLoginViewController: UIViewController, LoginButtonDelegate, CLLoca
         do {
             try Auth.auth().signOut()
             FBSDKAccessToken.setCurrent(nil)
-//            loggedIn = false
-//            storedValuesData.setValue(nil, forKey: "savedLoginEmail")
-//            storedValuesData.setValue(nil, forKey: "savedLoginPassword")
-//            jumpToVC1()
+            //            loggedIn = false
+            //            storedValuesData.setValue(nil, forKey: "savedLoginEmail")
+            //            storedValuesData.setValue(nil, forKey: "savedLoginPassword")
+            //            jumpToVC1()
         } catch let error as NSError {
             print(error.localizedDescription)
         }
